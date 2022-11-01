@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+</head>
+<body>
+    <h1>Edit Employee Details</h1>
+    <form action="/employees/<%=employee._id%>?_method=PUT" method="POST">
+        <label for="name">Enter name:</label>
+        <input type="text" name="name" id="name" placeholder="Employee Name" value="<%= employee.name %>"><br>
+        <label for="dob">Enter date of birth:</label>
+        <input type="date" id="dob" name="dob" placeholder="D.O.B." value="<%= employee.dob %>"><br>
+        <label for="">Department Code</label>
+        <input type="Number" name="depCode" value="<%=employee.depCode%>"><br>
+        <label for="email">Enter email:</label>
+        <input type="email" id="email" name="email" placeholder="Email ID" value="<%= employee.email %>"><br>
+        <label for="position">Select position:</label>
+        <select name="position" id="position">
+            <%for (let post of department.consists){%>
+                <option value="<%=post%>" <%=post === employee.position ? 'selected': ''%> ><%=post%></option>
+            <%}%>
+        </select>
+        <br>
+        <label for="address">Enter address:</label>
+        <input type="text" name="address" id="address" placeholder="Address" value="<%= employee.address %>"><br>
+        <label for="salary">Enter salary:</label>
+        <input type="Number" name="salary" id="salary" placeholder="Salary" value="<%= employee.salary %>"><br><br>
+        <button>Update</button>
+    </form>
+    <form action="/employees/<%=employee.depCode%>">
+        <button>Back</button>
+    </form>
+</body>
+</html>
