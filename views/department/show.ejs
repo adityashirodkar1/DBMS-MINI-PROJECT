@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=foundDepartment.name%> </title>
-</head>
-<body>
-    <h1><%=foundDepartment.name%></h1>
-    <h3>Code: <%= foundDepartment.code %> </h3>
-    <h3>About:</h3>
-        <%= foundDepartment.about %>
+    <% layout('layouts/boilerplate') %> 
+    <h1><%=department.name%></h1>
+        <%= department.about %>
         <br>
-    <a href="/departments">Back</a><br>
-    <a href="/employees/<%=foundDepartment.code%>">Employee Details</a>
-</body>
-</html>
+        <% if(department.code===200){ %>
+            <img src="https://ddi-dev.com/uploads/backend-is.png" alt="Backend Developer" class="dptimg">
+        <% } else if(department.code===100){ %>
+            <img src="https://assets.justinmind.com/wp-content/webp-express/webp-images/uploads/2019/03/enterprise-ux-team-header-image.png.webp" alt="Backend Developer" class="dptimg">
+        <% } else if(department.code===300){%>
+            <img src="https://content.altexsoft.com/media/2018/08/devops-role-3.png" alt="Backend Developer" class="dptimg">
+        <% } else{%>
+            <img src="https://elu.nl/wp-content/uploads/2019/03/Data-Engineer-vs-Data-Scientist-vs-Data-Analyst.png" alt="Backend Developer" class="dptimg">
+        <% } %> 
+
+ 
+
+        <!-- https://ddi-dev.com/blog/programming/backend-development-key-languages-technologies-features-in-2020/ -->
+        <!-- https://www.justinmind.com/blog/building-enterprise-ux-team/ -->
+        <!-- https://www.altexsoft.com/blog/engineering/devops-principles-practices-and-devops-engineer-role/ -->
+        <!-- https://elu.nl/careers-in-data-science-data-analyst-vs-data-engineer-vs-data-scientist/ -->

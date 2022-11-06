@@ -1,34 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees</title>
-</head>
-<body>
-    <h1>List:</h1>
-    <form action="/employees/<%=code%>" method="post">
-        <label for="position">Filter by Position:</label>
-        <select name="position" id="position">
-            <option value="all">All</option>
-            <%for (let post of department.consists){%>
-                <option value="<%=post%>"><%=post%></option>
-            <%}%>
-        </select>
-        <br>
-        <label for="age">Filter by Age: </label>
-        <select name="condition" id="age">
-            <option value="all">All</option>
-            <option value="gte">Greater than</option>
-            <option value="lte">Lesser than and equal to</option>
-        </select>
-        <input type="Number" id="age" placeholder="Type the age" name="age">
-        <br>
-        <button>Filter</button>
-    </form>
+    <% layout('layouts/boilerplate') %> 
+    <section>
+        <form action="/employees/<%=code%>" method="post">
+            <label for="position">Filter by Position:</label>
+            <select name="position" id="position">
+                <option value="all">All</option>
+                <%for (let post of department.consists){%>
+                    <option value="<%=post%>"><%=post%></option>
+                <%}%>
+            </select>
+            <br>
+            <label for="age">Filter by Age: </label>
+            <select name="condition" id="age">
+                <option value="all">All</option>
+                <option value="gte">Greater than</option>
+                <option value="lte">Lesser than and equal to</option>
+            </select>
+            <input type="Number" id="age" placeholder="Type the age" name="age">
+            <br>
+            <button>Filter</button>
+        </form>
+    </section>
+    <section>
+
+    </section>
     <br><br>
-    <table>
+    Blue - Highest salary <br>
+    Yellow - Least salary<br><br>
+    <table id="employees">
         <thead>
             <tr>
                 <th>SSN</th>
@@ -38,14 +36,28 @@
                 <th>Email ID</th>
                 <th>Position</th>
                 <th>Address</th>
-                <th>Salary in &#8377</th>
+                <th>Salary in (&#8377)</th>
                 <th></th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <%for(employee of employees){%>
-                <tr>
+                <% if(employee.position==='Team Leader') {%>
+                    <tr id="max">
+                        <td><%= employee.ssn %></td>
+                        <td><%= employee.name %></td>
+                        <td><%= employee.dob %></td>
+                        <td><%= 2022 - employee.dob.getFullYear() %></td>
+                        <td><%= employee.email %></td>
+                        <td><%= employee.position %></td>
+                        <td><%= employee.address %></td>
+                        <td><%= employee.salary %> </td>
+                        <td><a href="/employees/edit/<%=employee.ssn%>">Edit</a></td>
+                        <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button>Delete</button></form></td>
+                    </tr>
+                    <% } else if(employee.ssn===minEmp[0]._doc.ssn){%> 
+                <tr id="min">
                     <td><%= employee.ssn %></td>
                     <td><%= employee.name %></td>
                     <td><%= employee.dob %></td>
@@ -57,18 +69,20 @@
                     <td><a href="/employees/edit/<%=employee.ssn%>">Edit</a></td>
                     <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button>Delete</button></form></td>
                 </tr>
+                <% } else{%> 
+                    <tr>
+                        <td><%= employee.ssn %></td>
+                        <td><%= employee.name %></td>
+                        <td><%= employee.dob %></td>
+                        <td><%= 2022 - employee.dob.getFullYear() %></td>
+                        <td><%= employee.email %></td>
+                        <td><%= employee.position %></td>
+                        <td><%= employee.address %></td>
+                        <td><%= employee.salary %> </td>
+                        <td><a href="/employees/edit/<%=employee.ssn%>">Edit</a></td>
+                        <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button>Delete</button></form></td>
+                    </tr>
+                    <% } %> 
             <%}%>
         </tbody>
-        
     </table>
-    <form action="/departments" method="post">
-        <button>Back to Departments</button>
-    </form>
-    <form action="/" method="get">
-        <button>Login Page</button>
-    </form>
-    <form action="/employees/<%=code%>/new" method="get">
-        <button>Add employee</button> 
-    </form>
-</body>
-</html>

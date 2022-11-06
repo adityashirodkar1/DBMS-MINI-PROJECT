@@ -5,14 +5,113 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+    <style>
+        body{
+            background-color: #151b29;
+        }
+        .first div{
+            border: hidden;
+            padding: 50px;
+        }
+        .second div{
+            border: hidden;
+            padding: 50px;
+        }
+        .first{
+            display: flex;
+            justify-content: space-between;
+            justify-content: center;
+        }
+        .second{
+            display: flex;
+            justify-content: center;
+        }
+        #UX{
+            width: 400px;
+            height: 300px;
+            font-size: x-large;
+            background: none;
+            color: #ffa260;
+            border: 2px solid;
+        }
+        #UX:hover{
+            border-color: #f1ff5c;
+            color: white;
+            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+            transform: translateY(-0.35em);
+            transition: all 0.25s;
+        }
+        #Ba{
+            width: 400px;
+            height: 300px;
+            font-size: x-large;
+            background: none;
+            color: #ffa260;
+            border: 2px solid;
+        }
+        #Ba:hover{
+            border-color: #f1ff5c;
+            color: white;
+            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+            transform: translateY(-0.35em);
+            transition: all 0.25s;
+        }
+        #De{
+            width: 400px;
+            height: 300px;
+            font-size: x-large;
+            background: none;
+            color: #ffa260;
+            border: 2px solid;
+        }
+        #De:hover{
+            border-color: #f1ff5c;
+            color: white;
+            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+            transform: translateY(-0.35em);
+            transition: all 0.25s;
+        }
+        #Da{
+            width: 400px;
+            height: 300px;
+            font-size: x-large;
+            background: none;
+            color: #ffa260;
+            border: 2px solid;
+        }
+        #Da:hover{
+            border-color: #f1ff5c;
+            color: white;
+            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+            transform: translateY(-0.35em);
+            transition: all 0.25s;
+        }
+        h1, h2{
+            text-align: center;
+            color: #f1ff5c;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome <%=username%> </h1>
-    <h2>Here are the departments in our company: </h2>
-    <ul>
-        <% for(department of departments){ %>
-            <li><a href="/departments/<%=department.code%>"><%=department.name%></a></li>
+    <h2>Departments</h2>
+    <div class="first">
+        <% for(let i=0;i<2;i++){ %>
+            <div>
+                <form action="/departments/<%=departments[i].code%>" method="get">
+                    <button id="<%=departments[i].name.substring(0,2)%>"><%=departments[i].name%></button>
+                </form>
+            </div>
         <% } %>
-    </ul>
+    </div>
+    <div class="second">
+        <% for(let i=2;i<4;i++){ %>
+            <div>
+                <form action="/departments/<%=departments[i].code%>" method="get">
+                    <button id="<%=departments[i].name.substring(0,2)%>"><%=departments[i].name%></button>
+                </form>
+            </div>
+        <% } %>
+    </div>
 </body>
 </html>

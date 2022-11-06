@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Employee</title>
-</head>
-<body>
+    <% layout('layouts/boilerplate') %>
     <h1>Add Employee Details</h1>
     <form action="/employees" method="post">
         <label for="name">Enter name:</label>
@@ -31,8 +23,6 @@
         <input type="Number" name="salary" id="salary" placeholder="Salary"><br><br>
         <button>Submit</button>
     </form>
-    <form action="/employees/<%=code%>">
+    <!-- <form action="/employees/<%=code%>">
         <button>Back</button>
-    </form>
-</body>
-</html>
+    </form> -->
