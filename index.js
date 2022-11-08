@@ -84,11 +84,17 @@ app.post('/employees/:code', async (req,res) => {
     if(req.body.position === 'all' && req.body.condition === 'all'){
         const employees = await Employee.find({depCode: code})
         const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+        if(employees.length===0){
+            res.render('employee/empty', { employees , code, department , position , minEmp })
+        }
         res.render('employee/show', { employees , code, department , position , minEmp })
     }
     else if(req.body.condition === 'all'){
         const employees = await Employee.find({position: req.body.position, depCode: code})
         const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+        if(employees.length===0){
+            res.render('employee/empty', { employees , code, department , position , minEmp })
+        }
         res.render('employee/show', { employees , code, department , position , minEmp })
     }
     else if(req.body.position === 'all'){
@@ -96,11 +102,17 @@ app.post('/employees/:code', async (req,res) => {
         if(req.body.condition === 'gte'){
             const employees = await Employee.find({ dob: { $lte: `${year}-01-01`}, depCode: code});
             const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+            if(employees.length===0){
+                res.render('employee/empty', { employees , code, department , position , minEmp })
+            }
             res.render('employee/show', { employees , code, department , position , minEmp })
         }
         else{
             const employees = await Employee.find({ dob: { $gte: `${year}-01-01`}, depCode: code});
             const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+            if(employees.length===0){
+                res.render('employee/empty', { employees , code, department , position , minEmp })
+            }
             res.render('employee/show', { employees , code, department , position , minEmp })
         }
     }
@@ -109,15 +121,20 @@ app.post('/employees/:code', async (req,res) => {
         if(req.body.condition === 'gte'){
             const employees = await Employee.find({ dob: { $lte: `${year}-01-01`}, depCode: code, position: req.body.position});
             const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+            if(employees.length===0){
+                res.render('employee/empty', { employees , code, department , position , minEmp })
+            }
             res.render('employee/show', { employees , code, department , position , minEmp })
         }
         else{
             const employees = await Employee.find({ dob: { $gte: `${year}-01-01`}, depCode: code, position: req.body.position});
             const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+            if(employees.length===0){
+                res.render('employee/empty', { employees , code, department , position , minEmp })
+            }
             res.render('employee/show', { employees , code, department , position , minEmp })
         }
     }
-    
 })
 
 app.get('/employees/edit/:ssn', async (req,res) => {

@@ -1,5 +1,5 @@
     <% layout('layouts/boilerplate') %>
-    <h1>Edit Employee Details</h1>
+    <!-- <h1>Edit Employee Details</h1>
     <form action="/employees/<%=employee._id%>?_method=PUT" method="POST">
         <label for="name">Enter name:</label>
         <input type="text" name="name" id="name" placeholder="Employee Name" value="<%= employee.name %>"><br>
@@ -21,7 +21,38 @@
         <label for="salary">Enter salary:</label>
         <input type="Number" name="salary" id="salary" placeholder="Salary" value="<%= employee.salary %>"><br><br>
         <button>Update</button>
-    </form>
-    <!-- <form action="/employees/<%=employee.depCode%>">
-        <button>Back</button>
     </form> -->
+
+    <div class="row">
+        <h1 class="text-center">Edit Employee Details</h1>
+        <div class="col-6 offset-3">
+            <form action="/employees/<%=employee._id%>?_method=PUT" method="POST">
+                <label class="form-label" for="name">Enter name:</label>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Employee Name" value="<%= employee.name %>"><br>
+                <label class="form-label" for="dob">Enter date of birth:</label>
+                <input class="form-control" type="date" id="dob" name="dob" placeholder="D.O.B." value="<%= employee.dob %>"><br>
+                <label class="form-label" for="">Department Code</label>
+                <input class="form-control" type="Number" name="depCode" value="<%=code%>"><br>
+                <label class="form-label" for="email">Enter email:</label>
+                <input class="form-control" type="email" id="email" name="email" placeholder="Email ID" value="<%= employee.email %>"><br>
+                <label class="form-label" for="position">Select position:</label>
+                <select name="position" id="position">
+                    <%for (let post of department.consists){%>
+                        <option class="form-control" value="<%=post%>" <%=post === employee.position ? 'selected': ''%> ><%=post%></option>
+                    <%}%>
+                </select>
+                <br>
+                <label class="form-label" for="address">Enter address:</label>
+                <input class="form-control" type="text" name="address" id="address" placeholder="Address" value="<%= employee.address %>"><br>
+                <div>
+                    <label class="form-label" for="salary">Enter salary:</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="salary">&#8377</span>
+                        <input class="form-control" type="Number" name="salary" id="salary" placeholder="0.00" aria-describedby="salary-label" value="<%= employee.salary %>">
+                    </div>
+                </div>
+                <br><br>
+                <button class="btn btn-info">Update</button>
+            </form>
+        </div>
+    </div>

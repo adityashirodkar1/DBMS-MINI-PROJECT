@@ -5,9 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat">
     <style>
-        body{
-            background-color: #151b29;
+        body, html{
+            height: 100%;
+            margin: 0;
+            font-family: 'Montserrat';
+        }
+        .bg-image{
+            background-image: url("https://images.unsplash.com/photo-1493238792000-8113da705763?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+        .content{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
         .first div{
             border: hidden;
@@ -26,92 +44,51 @@
             display: flex;
             justify-content: center;
         }
-        #UX{
-            width: 400px;
-            height: 300px;
+        button{
+            width: 250px;
+            height: 150px;
             font-size: x-large;
             background: none;
-            color: #ffa260;
+            color: #0C1432;
             border: 2px solid;
         }
-        #UX:hover{
-            border-color: #f1ff5c;
+        button:hover{
+            border-color: #fff;
             color: white;
-            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
-            transform: translateY(-0.35em);
-            transition: all 0.25s;
-        }
-        #Ba{
-            width: 400px;
-            height: 300px;
-            font-size: x-large;
-            background: none;
-            color: #ffa260;
-            border: 2px solid;
-        }
-        #Ba:hover{
-            border-color: #f1ff5c;
-            color: white;
-            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
-            transform: translateY(-0.35em);
-            transition: all 0.25s;
-        }
-        #De{
-            width: 400px;
-            height: 300px;
-            font-size: x-large;
-            background: none;
-            color: #ffa260;
-            border: 2px solid;
-        }
-        #De:hover{
-            border-color: #f1ff5c;
-            color: white;
-            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
-            transform: translateY(-0.35em);
-            transition: all 0.25s;
-        }
-        #Da{
-            width: 400px;
-            height: 300px;
-            font-size: x-large;
-            background: none;
-            color: #ffa260;
-            border: 2px solid;
-        }
-        #Da:hover{
-            border-color: #f1ff5c;
-            color: white;
-            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+            background: rgb(59, 2, 26);
+            box-shadow: 0 0.5em 0.5em -0.4em #fff;
             transform: translateY(-0.35em);
             transition: all 0.25s;
         }
         h1, h2{
             text-align: center;
-            color: #f1ff5c;
+            color: #bdf1fa;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome <%=username%> </h1>
-    <h2>Departments</h2>
-    <div class="first">
-        <% for(let i=0;i<2;i++){ %>
-            <div>
-                <form action="/departments/<%=departments[i].code%>" method="get">
-                    <button id="<%=departments[i].name.substring(0,2)%>"><%=departments[i].name%></button>
-                </form>
-            </div>
-        <% } %>
-    </div>
-    <div class="second">
-        <% for(let i=2;i<4;i++){ %>
-            <div>
-                <form action="/departments/<%=departments[i].code%>" method="get">
-                    <button id="<%=departments[i].name.substring(0,2)%>"><%=departments[i].name%></button>
-                </form>
-            </div>
-        <% } %>
+    <div class="bg-image"></div>
+    <div class="content">
+        <!-- <h1>Welcome <%=username%> </h1> -->
+        <h2>IT DEPARTMENTS</h2>
+        <div class="first">
+            <% for(let i=0;i<2;i++){ %>
+                <div>
+                    <form action="/departments/<%=departments[i].code%>" method="get">
+                        <button id="<%=departments[i].name.substring(0,2)%>"><%=departments[i].name%></button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
+        <div class="second">
+            <% for(let i=2;i<4;i++){ %>
+                <div>
+                    <form action="/departments/<%=departments[i].code%>" method="get">
+                        <button id="<%=departments[i].name.substring(0,2)%>"><%=departments[i].name%></button>
+                    </form>
+                </div>
+            <% } %>
+        </div>
     </div>
 </body>
 </html>

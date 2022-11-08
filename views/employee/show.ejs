@@ -54,7 +54,7 @@
                         <td><%= employee.address %></td>
                         <td><%= employee.salary %> </td>
                         <td><a href="/employees/edit/<%=employee.ssn%>">Edit</a></td>
-                        <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button>Delete</button></form></td>
+                        <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button id="but">Delete</button></form></td>
                     </tr>
                     <% } else if(employee.ssn===minEmp[0]._doc.ssn){%> 
                 <tr id="min">
@@ -67,7 +67,7 @@
                     <td><%= employee.address %></td>
                     <td><%= employee.salary %> </td>
                     <td><a href="/employees/edit/<%=employee.ssn%>">Edit</a></td>
-                    <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button>Delete</button></form></td>
+                    <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button id="but">Delete</button></form></td>
                 </tr>
                 <% } else{%> 
                     <tr>
@@ -80,9 +80,17 @@
                         <td><%= employee.address %></td>
                         <td><%= employee.salary %> </td>
                         <td><a href="/employees/edit/<%=employee.ssn%>">Edit</a></td>
-                        <td><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button>Delete</button></form></td>
+                        <td><div><form action="/employees/<%=employee._id%>?_method=DELETE" method="POST"><button id="but">Delete</button></form></td>
                     </tr>
                     <% } %> 
             <%}%>
         </tbody>
+        <tfoot>
+            <tr id="ftable">
+                <td>Total:</td>
+                <td><%= employees.length %> </td>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+        </tfoot>
     </table>
+    <br>
