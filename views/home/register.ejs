@@ -1,10 +1,21 @@
     <% layout('layouts/boilerplate2') %> 
-    <h1>Registeration</h1>
-    <form action="/register" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" placeholder="Username" name="username" id="username">
-        <label for="password">Password:</label>
-        <input type="password" placeholder="Password" name="password" id="password">
-        <button>Submit</button>
-    </form>
+    <div class="bgimg"></div>
+    <div class="logpage">
+        <div class="login">
+            <section>
+                <h2>Register</h2>
+            </section>
+            <section class="details">
+                <form action="/register" id="loginform" method="POST">
+                    <label for="username">Username:</label><br>
+                    <input type="text" name="username" id="username" placeholder="username"><br><br>
+                    <label for="password">Password:</label><br>
+                    <input type="password" name="password" id="password" placeholder="Password"><br><br>
+                    <div>
+                        <button id="lgsub">Register</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div> 
     

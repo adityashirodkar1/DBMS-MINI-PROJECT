@@ -61,7 +61,7 @@ app.post('/register', async (req,res) => {
         password: hash
     })
     await user.save();
-    res.redirect('/')
+    res.redirect('/department/index')
 })
 
 //department
@@ -72,17 +72,27 @@ app.post('/register', async (req,res) => {
 // })
 
 app.get('/departments/:id', async (req,res) => {
-    const { id } = req.params
-    const department = await Department.findOne({code: id})
-    const code = id
-    res.render('department/show', { department , code })
+    if(req.session.user_id){
+        const { id } = req.params
+        const department = await Department.findOne({code: id})
+        const code = id
+        res.render('department/show', { department , code })
+    }
+    else{
+        res.redirect('/')
+    }
 })
 
 //employee
 app.get('/employees/:code/new', async (req,res) => {
-    const { code } = req.params;
-    const department = await Department.findOne({code: code})
-    res.render('employee/new', { code, department })
+    if(req.session.user_id){
+        const { code } = req.params;
+        const department = await Department.findOne({code: code})
+        res.render('employee/new', { code, department })
+    }
+    else{
+        res.redirect('/')
+    }
 })
 
 app.post('/employees', async (req,res) => {
@@ -97,12 +107,16 @@ app.post('/employees', async (req,res) => {
 })
 
 app.get('/employees/:code', async (req,res) => {
-    const { code } = req.params
-    const department = await Department.findOne({code: code})
-    const employees = await Employee.find({depCode: code})
-    const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
-    res.render('employee/show', { employees, code, department , minEmp})
-    
+    if(req.session.user_id){
+        const { code } = req.params
+        const department = await Department.findOne({code: code})
+        const employees = await Employee.find({depCode: code})
+        const minEmp = await Employee.find({depCode: code}).sort({salary: 1}).limit(1);
+        res.render('employee/show', { employees, code, department , minEmp})
+    }
+    else{
+        res.redirect('/')
+    }
 })
 
 app.post('/employees/:code', async (req,res) => {
@@ -167,11 +181,16 @@ app.post('/employees/:code', async (req,res) => {
 })
 
 app.get('/employees/edit/:ssn', async (req,res) => {
-    const { ssn } = req.params
-    const employee = await Employee.findOne({ssn: ssn})
-    const department = await Department.findOne({code: employee.depCode})
-    const code = employee.depCode
-    res.render('employee/edit', { employee , department , code })
+    if(req.session.user_id){
+        const { ssn } = req.params
+        const employee = await Employee.findOne({ssn: ssn})
+        const department = await Department.findOne({code: employee.depCode})
+        const code = employee.depCode
+        res.render('employee/edit', { employee , department , code })
+    }
+    else{
+        res.redirect('/')
+    }
 })
 
 app.put('/employees/:id', async (req,res) => {
