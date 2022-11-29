@@ -6,6 +6,9 @@ const ejsMate = require('ejs-mate')
 const methodOverride = require('method-override');
 const Department = require('./models/department');
 const Employee = require('./models/employee');
+const User = require('./models/users');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
 
 mongoose.connect('mongodb://localhost:27017/ITCompany', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
@@ -18,6 +21,7 @@ mongoose.connect('mongodb://localhost:27017/ITCompany', {useNewUrlParser: true, 
 
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
+app.use(session({secret: "Yeah....Nope!"}))
 
 app.engine('ejs',ejsMate)
 app.set('views',path.join(__dirname, 'views'));
@@ -31,16 +35,41 @@ app.get('/login', (req,res) => {
     res.render('home/login')
 })
 
+app.post('/login', async (req,res) => {
+    const { username, password } = req.body 
+    const departments = await Department.find({})
+    const user = await User.findOne({username});
+    const validPassword = await bcrypt.compare(password, user.password)
+    if(validPassword){
+        req.session.user_id = user._id;
+        res.render('department/index', { departments })
+    }
+    else{
+        res.redirect('/login')
+    }
+})
+
 app.get('/register', (req,res) => {
     res.render('home/register')
 })
 
-//department
-app.post('/departments', async (req,res) => {
-    const username = req.body.username
-    const departments = await Department.find({})
-    res.render('department/index', { departments , username});
+app.post('/register', async (req,res) => {
+    const { username, password } = req.body
+    const hash = await bcrypt.hash(password, 12)
+    const user = new User({
+        username,
+        password: hash
+    })
+    await user.save();
+    res.redirect('/')
 })
+
+//department
+// app.post('/departments', async (req,res) => {
+//     const username = req.body.username
+//     const departments = await Department.find({})
+//     res.render('department/index', { departments , username});
+// })
 
 app.get('/departments/:id', async (req,res) => {
     const { id } = req.params
